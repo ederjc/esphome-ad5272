@@ -15,7 +15,8 @@ CONFIG_SCHEMA = binary_sensor.binary_sensor_schema(
 }).extend(cv.COMPONENT_SCHEMA)
 
 async def to_code(config):
-    var = await binary_sensor.new_binary_sensor(config)
+    var = cg.new_Pvariable(config[CONF_ID])
+    await binary_sensor.register_binary_sensor(var, config)
     await cg.register_component(var, config)
     
     parent = await cg.get_variable(config[CONF_AD5272_ID])

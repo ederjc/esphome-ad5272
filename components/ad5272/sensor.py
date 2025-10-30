@@ -31,7 +31,8 @@ CONFIG_SCHEMA = sensor.sensor_schema(
 }).extend(cv.COMPONENT_SCHEMA)
 
 async def to_code(config):
-    var = await sensor.new_sensor(config)
+    var = cg.new_Pvariable(config[CONF_ID])
+    await sensor.register_sensor(var, config)
     await cg.register_component(var, config)
     
     parent = await cg.get_variable(config[CONF_AD5272_ID])
