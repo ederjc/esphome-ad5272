@@ -50,7 +50,7 @@ async def to_code(config):
     cg.add(var.set_parent(parent))
     
     sensor_type = config[CONF_TYPE]
-    cg.add(var.set_sensor_type(sensor_type))
+    cg.add(var.set_sensor_type(cg.const_char_ptr(sensor_type)))
     
     # Apply sensor type specific settings
     type_config = SENSOR_TYPES[sensor_type]
