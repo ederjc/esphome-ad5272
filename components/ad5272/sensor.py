@@ -9,7 +9,7 @@ from esphome.const import (
 )
 from . import ad5272_ns, AD5272Component, CONF_AD5272_ID
 
-DEPENDENCIES = ['ad5272']
+DEPENDENCIES = ['ad5272', 'sensor']
 
 AD5272Sensor = ad5272_ns.class_('AD5272Sensor', sensor.Sensor, cg.Component)
 

@@ -4,7 +4,7 @@ from esphome.components import text_sensor
 from esphome.const import CONF_ID, CONF_ICON
 from . import ad5272_ns, AD5272Component, CONF_AD5272_ID
 
-DEPENDENCIES = ['ad5272']
+DEPENDENCIES = ['ad5272', 'text_sensor']
 
 AD5272TextSensor = ad5272_ns.class_('AD5272TextSensor', text_sensor.TextSensor, cg.Component)
 

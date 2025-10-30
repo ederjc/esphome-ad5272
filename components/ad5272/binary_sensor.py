@@ -4,7 +4,7 @@ from esphome.components import binary_sensor
 from esphome.const import CONF_ID
 from . import ad5272_ns, AD5272Component, CONF_AD5272_ID
 
-DEPENDENCIES = ['ad5272']
+DEPENDENCIES = ['ad5272', 'binary_sensor']
 
 AD5272BinarySensor = ad5272_ns.class_('AD5272BinarySensor', binary_sensor.BinarySensor, cg.Component)
 

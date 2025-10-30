@@ -2,7 +2,7 @@
  * AD5272 Digital Potentiometer Component Implementation for ESPHome
  */
 
-#include "ad5272_component.h"
+#include "ad5272.h"
 #include "esphome/core/log.h"
 
 namespace esphome {
