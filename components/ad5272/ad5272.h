@@ -8,6 +8,7 @@
 #pragma once
 
 #include "esphome/core/component.h"
+#include "esphome/core/helpers.h"
 #include "esphome/components/i2c/i2c.h"
 #include "esphome/components/sensor/sensor.h"
 #include "esphome/components/binary_sensor/binary_sensor.h"
@@ -82,7 +83,7 @@ class AD5272Sensor : public sensor::Sensor, public Component {
  public:
   void set_parent(AD5272Component *parent) { parent_ = parent; }
   void set_sensor_type(const std::string &type) { sensor_type_ = type; }
-  void update() override;
+  void update();
   float get_setup_priority() const override { return setup_priority::DATA; }
 
  protected:
@@ -94,7 +95,7 @@ class AD5272Sensor : public sensor::Sensor, public Component {
 class AD5272BinarySensor : public binary_sensor::BinarySensor, public Component {
  public:
   void set_parent(AD5272Component *parent) { parent_ = parent; }
-  void update() override;
+  void update();
   float get_setup_priority() const override { return setup_priority::DATA; }
 
  protected:
@@ -105,7 +106,7 @@ class AD5272BinarySensor : public binary_sensor::BinarySensor, public Component 
 class AD5272TextSensor : public text_sensor::TextSensor, public Component {
  public:
   void set_parent(AD5272Component *parent) { parent_ = parent; }
-  void update() override;
+  void update();
   float get_setup_priority() const override { return setup_priority::DATA; }
 
  protected:
