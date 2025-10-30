@@ -41,7 +41,7 @@ void AD5272Component::setup() {
 void AD5272Component::loop() {
   // Periodically check device availability (every 30 seconds)
   static uint32_t last_check = 0;
-  uint32_t now = millis();
+  uint32_t now = esphome::millis();
   
   if (now - last_check > 30000) {
     this->device_available_ = this->check_device_presence();
@@ -98,7 +98,7 @@ bool AD5272Component::set_resistance(float target_ohms) {
   }
 
   // Verify the write
-  delay(10); // Small delay for write to complete
+  esphome::delay(10); // Small delay for write to complete
   int16_t readback = this->command_read(AD5274_RDAC_READ);
   if (readback < 0 || (uint16_t)readback != wiper_position) {
     ESP_LOGE(TAG, "Write verification failed. Expected: %d, Got: %d", 
@@ -164,8 +164,8 @@ bool AD5272Component::command_write(uint8_t command, uint16_t data) {
     (uint8_t)(cmd_word & 0xFF)
   };
 
-  ErrorCode err = this->write(buffer, 2);
-  if (err != ERROR_OK) {
+  i2c::ErrorCode err = this->write(buffer, 2);
+  if (err != i2c::ERROR_OK) {
     ESP_LOGE(TAG, "I2C write failed: %d", (int)err);
     return false;
   }
@@ -180,12 +180,12 @@ int16_t AD5272Component::command_read(uint8_t command, uint8_t data) {
   }
 
   // Small delay between write and read
-  delay(1);
+  esphome::delay(1);
 
   // Read 2 bytes response
   uint8_t buffer[2];
-  ErrorCode err = this->read(buffer, 2);
-  if (err != ERROR_OK) {
+  i2c::ErrorCode err = this->read(buffer, 2);
+  if (err != i2c::ERROR_OK) {
     ESP_LOGE(TAG, "I2C read failed: %d", (int)err);
     return -1;
   }
