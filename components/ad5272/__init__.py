@@ -22,17 +22,3 @@ async def to_code(config):
     await i2c.register_i2c_device(var, config)
     
     cg.add(var.set_max_resistance(config[CONF_MAX_RESISTANCE]))
-
-# Actions
-SetResistanceAction = ad5272_ns.class_('SetResistanceAction', cg.Action)
-
-@cg.register_action("ad5272.set_resistance", SetResistanceAction, cv.Schema({
-    cv.GenerateID(): cv.use_id(AD5272Component),
-    cv.Required("resistance"): cv.templatable(cv.float_range(min=0)),
-}))
-async def ad5272_set_resistance_to_code(config, action_id, template_arg, args):
-    paren = await cg.get_variable(config[CONF_ID])
-    var = cg.new_Pvariable(action_id, template_arg, paren)
-    template_ = await cg.templatable(config["resistance"], args, float)
-    cg.add(var.set_resistance(template_))
-    return var

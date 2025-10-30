@@ -112,21 +112,5 @@ class AD5272TextSensor : public text_sensor::TextSensor, public Component {
   AD5272Component *parent_;
 };
 
-// Action for setting resistance
-template<typename... Ts> class SetResistanceAction : public Action<Ts...> {
- public:
-  SetResistanceAction(AD5272Component *parent) : parent_(parent) {}
-  
-  TEMPLATABLE_VALUE(float, resistance)
-  
-  void play(Ts... x) override {
-    float resistance = this->resistance_.value(x...);
-    this->parent_->set_resistance(resistance);
-  }
-
- protected:
-  AD5272Component *parent_;
-};
-
 }  // namespace ad5272
 }  // namespace esphome
