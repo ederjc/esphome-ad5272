@@ -247,36 +247,5 @@ bool AD5272Component::check_device_presence() {
   return result >= 0;
 }
 
-// AD5272Sensor implementation
-void AD5272Sensor::update() {
-  if (this->parent_ == nullptr) return;
-  
-  if (this->sensor_type_ == "resistance") {
-    float resistance = this->parent_->get_current_resistance();
-    if (!isnan(resistance)) {
-      this->publish_state(resistance);
-    }
-  } else if (this->sensor_type_ == "wiper_position") {
-    uint16_t wiper = this->parent_->get_current_wiper_position();
-    this->publish_state((float)wiper);
-  }
-}
-
-// AD5272BinarySensor implementation
-void AD5272BinarySensor::update() {
-  if (this->parent_ == nullptr) return;
-  
-  bool available = this->parent_->is_device_available();
-  this->publish_state(available);
-}
-
-// AD5272TextSensor implementation
-void AD5272TextSensor::update() {
-  if (this->parent_ == nullptr) return;
-  
-  std::string status = this->parent_->get_status_message();
-  this->publish_state(status);
-}
-
 }  // namespace ad5272
 }  // namespace esphome

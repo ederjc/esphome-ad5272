@@ -8,11 +8,7 @@
 #pragma once
 
 #include "esphome/core/component.h"
-#include "esphome/core/helpers.h"
 #include "esphome/components/i2c/i2c.h"
-#include "esphome/components/sensor/sensor.h"
-#include "esphome/components/binary_sensor/binary_sensor.h"
-#include "esphome/components/text_sensor/text_sensor.h"
 
 namespace esphome {
 namespace ad5272 {
@@ -76,41 +72,6 @@ class AD5272Component : public Component, public i2c::I2CDevice {
   float wiper_to_resistance(uint16_t wiper_position);
   void update_status(const std::string& message);
   bool check_device_presence();
-};
-
-// Sensor class for resistance and wiper position
-class AD5272Sensor : public sensor::Sensor, public Component {
- public:
-  void set_parent(AD5272Component *parent) { parent_ = parent; }
-  void set_sensor_type(const std::string &type) { sensor_type_ = type; }
-  void update();
-  float get_setup_priority() const override { return setup_priority::DATA; }
-
- protected:
-  AD5272Component *parent_;
-  std::string sensor_type_;
-};
-
-// Binary sensor for device connectivity
-class AD5272BinarySensor : public binary_sensor::BinarySensor, public Component {
- public:
-  void set_parent(AD5272Component *parent) { parent_ = parent; }
-  void update();
-  float get_setup_priority() const override { return setup_priority::DATA; }
-
- protected:
-  AD5272Component *parent_;
-};
-
-// Text sensor for status messages
-class AD5272TextSensor : public text_sensor::TextSensor, public Component {
- public:
-  void set_parent(AD5272Component *parent) { parent_ = parent; }
-  void update();
-  float get_setup_priority() const override { return setup_priority::DATA; }
-
- protected:
-  AD5272Component *parent_;
 };
 
 }  // namespace ad5272
